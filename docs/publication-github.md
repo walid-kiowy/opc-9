@@ -1,6 +1,6 @@
 # Publier la démonstration sur GitHub
 
-Le dépôt cible est https://github.com/walid-kiowy/opc-9, créé le 4 octobre 2026. La publication via la connexion GitHub a été refusée avec une erreur 403 ; aucune écriture distante n’a réussi. Aucune URL de dépôt ou d’exécution CI n’est présentée comme une preuve tant que cette publication n’a pas eu lieu. GlossaPro conserve GitLab comme cible dans la stratégie ; le sujet initial accepte GitLab ou GitHub pour le pipeline pédagogique.
+Le dépôt cible est https://github.com/walid-kiowy/opc-9, créé le 4 octobre 2026. L’accès de l’intégration a été corrigé et le pipeline a été publié. La première CI a réussi : https://github.com/walid-kiowy/opc-9/actions/runs/37231259317 . Les étapes ci-dessous permettent de reproduire la publication ou de préparer un nouveau dépôt. GlossaPro conserve GitLab comme cible dans la stratégie ; le sujet initial accepte GitLab ou GitHub pour le pipeline pédagogique.
 
 ## Préparer le dépôt
 
@@ -38,10 +38,10 @@ Créer une branche `demo/test-bloquant`, modifier temporairement l’attendu `te
 | Preuve | État au 4 octobre 2026 |
 |---|---|
 | URL du dépôt GitHub | https://github.com/walid-kiowy/opc-9 |
-| SHA du commit publié | À compléter après push |
-| URL de CI réussie | À compléter après exécution |
+| SHA du commit testé | 20f6b6298e533a3db60fd2e4541bae4debe53b94 |
+| URL de CI réussie | https://github.com/walid-kiowy/opc-9/actions/runs/37231259317 |
 | URL de CI en échec puis corrigée | À compléter sur la branche de démonstration |
-| Artefact et empreinte | Vérifiés localement ; téléchargement hébergé à vérifier |
+| Artefact et empreinte | Artefact publié par la CI ; digest GitHub disponible dans VALIDATION.md |
 | Staging et production distants | Non exécutés |
 | Validation du mentor | À obtenir |
 

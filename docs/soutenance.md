@@ -21,7 +21,7 @@ GlossaPro dispose déjà d'une partie des outils nécessaires. Mon diagnostic di
 
 **Pourquoi ne pas augmenter les serveurs immédiatement ?** La capacité peut être nécessaire, mais les causes des lenteurs ne sont pas démontrées. Le profiling évite de surdimensionner un composant qui n'est pas le goulet. La redondance nécessite aussi des domaines de panne distincts.
 
-**Avez-vous atteint les objectifs ?** Les documents proposent des cibles. Seule la démonstration technique locale a été vérifiée à ce stade ; les résultats sur GlossaPro nécessitent accès au SI, baseline et pilote réel.
+**Avez-vous atteint les objectifs ?** Les documents proposent des cibles. Les contrôles locaux et la CI GitHub du pilote sont vérifiés ; les résultats sur GlossaPro nécessitent accès au SI, baseline et pilote réel.
 
 **Deux backends ne suffisent-ils pas pour la redondance ?** Non : Node et TensorFlow, ou Java et Flask, remplissent des fonctions différentes. Il faut répliquer chaque service critique pertinent.
 
@@ -41,4 +41,4 @@ Utiliser les besoins B01 à B08 du rapport et de la proposition pour expliquer l
 
 Exécuter `bash scripts/verify.sh`. Montrer les deux tests HTTP, le build, le contrôle SHA-256 et la version réellement servie. Le message de checksum en échec est attendu dans le scénario de corruption volontaire ; le script doit ensuite terminer avec succès. Les rapports sont dans `docs/preuves-locales/`. La sonde vérifie le processus pédagogique, sans base ni dépendance métier.
 
-GitHub a été retenu pour la publication pédagogique, mais le dépôt sera créé plus tard. Le guide `docs/publication-github.md` prépare le push et les preuves de CI. Présenter cette limite sans affirmer qu’une CI hébergée, un rollback distant ou une restauration ont été exécutés. La validation du mentor reste à obtenir.
+GitHub héberge le pilote dans `walid-kiowy/opc-9`. La première CI a réussi : https://github.com/walid-kiowy/opc-9/actions/runs/37231259317 . Montrer les deux jobs et l’artefact, puis préciser qu’un rollback distant et une restauration n’ont pas été exécutés. La validation du mentor reste à obtenir.
