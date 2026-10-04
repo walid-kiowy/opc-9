@@ -1,0 +1,66 @@
+image: node:22-bookworm
+stages: [validate, test, build, integration, deploy]
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS'
+      when: never
+    - if: '$CI_COMMIT_BRANCH'
+validate:
+  stage: validate
+  script:
+    - node --check src/server.mjs
+    - bash -n scripts/build.sh scripts/smoke.sh scripts/deploy.sh scripts/remote_release.sh
+    - node scripts/security_check.mjs
+unit:
+  stage: test
+  script: ["npm test"]
+build:
+  stage: build
+  script: ["bash scripts/build.sh"]
+  artifacts:
+    paths: [dist/]
+    expire_in: 30 days
+integration:
+  stage: integration
+  needs:
+    - job: build
+      artifacts: true
+  script: ["bash scripts/smoke.sh"]
+  environment:
+    name: ci-demo
+    deployment_tier: testing
+deploy_staging:
+  stage: deploy
+  needs:
+    - job: build
+      artifacts: true
+    - job: integration
+      artifacts: false
+  script: ["bash scripts/deploy.sh"]
+  resource_group: staging
+  environment:
+    name: staging
+    deployment_tier: staging
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $ENABLE_REMOTE_DEPLOY == "true"'
+  variables:
+    DEPLOY_PORT: "3000"
+deploy_production:
+  stage: deploy
+  needs:
+    - job: build
+      artifacts: true
+    - job: deploy_staging
+      artifacts: false
+  script: ["bash scripts/deploy.sh"]
+  resource_group: production
+  environment:
+    name: production
+    deployment_tier: production
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $ENABLE_REMOTE_DEPLOY == "true"'
+      when: manual
+      allow_failure: false
+  variables:
+    DEPLOY_PORT: "3000"

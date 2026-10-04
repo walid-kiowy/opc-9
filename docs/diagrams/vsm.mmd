@@ -1,0 +1,8 @@
+flowchart TD
+ A["S01 Ticket Jira / PO / manuel / durée inconnue"] --> B["S02 Développement / Dev / manuel / durée inconnue"]
+ B --> C["S03 Release / Dev / 60 min"]
+ C --> D["S04 à S06 Jenkins / build tests publication / 120 min"]
+ D --> E["S07 Notification intégration / Dev / 15 min"]
+ E --> F["S08 et S09 Intégration / déploiement et tests / 180 min"]
+ F --> H["S10 Notification production / intégration / 15 min"]
+ H --> I["S11 Production / déploiement / 60 min"]

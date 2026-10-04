@@ -1,0 +1,14 @@
+flowchart TD
+ I["Classifier / propriétaire et conservation"] --> C{"Nature de information"}
+ C -->|Configuration| G["Git / données non sensibles / revue"]
+ C -->|Secret| S["Stockage protégé / Vault chiffré / clé séparée"]
+ C -->|Donnée métier| D["Base de production / accès minimal / chiffrement"]
+ G --> R["Runner autorisé / environnement explicite"]
+ S --> R
+ R --> E["Injection à exécution / logs expurgés"]
+ E --> T["Rotation / test nouvelle clé / révocation ancienne"]
+ D --> B["Sauvegarde chiffrée isolée"]
+ B --> V{"Restauration isolée vérifiée"}
+ V -->|Oui| P["Preuve RPO et RTO / validation métier"]
+ V -->|Non| N["Correction et nouvel exercice"]
+ D --> Z["Fin de conservation / suppression tracée"]

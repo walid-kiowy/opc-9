@@ -1,0 +1,20 @@
+Garde-fou réussi ; audit de sécurité complet requis avant production.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> glossapro-devops-pilot@1.0.0 test
+> node --test
+
+✔ health and version expose the deployed release (28.016459ms)
+✔ unknown route is rejected (6.264215ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 146.31803
+release.tar.gz: OK
+release.tar.gz: FAILED
+sha256sum: WARNING: 1 computed checksum did NOT match
+Vérification réussie : tests, paquet servi et rejet de corruption.

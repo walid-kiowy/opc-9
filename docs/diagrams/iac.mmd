@@ -1,0 +1,12 @@
+flowchart TD
+ G["Git / configurations non sensibles"] --> R["Revue Ops et validation Ansible"]
+ R --> T["Runner test / aucun secret production"]
+ T --> C["Test sur staging / contrôle idempotence"]
+ C --> V{"Changement accepté"}
+ V -->|Oui| P["Runner déploiement / identité limitée"]
+ V -->|Non| X["Correction en branche"]
+ S["Secrets protégés par environnement"] --> P
+ P --> A["Ansible / inventaire explicite"]
+ A --> ST["Staging / services et paramètres"]
+ A --> PR["Production / services et paramètres"]
+ F["Provisionnement VM futur / OpenTofu"] --> E["État distant séparé et verrouillé"]

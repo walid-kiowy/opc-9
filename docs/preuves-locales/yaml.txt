@@ -1,0 +1,6 @@
+.gitlab-ci.yml: YAML analysé sans erreur
+.github/workflows/ci.yml: YAML analysé sans erreur
+infra/ansible/bootstrap.yml: YAML analysé sans erreur
+Déclencheurs main/PR, dépendance des jobs et permissions GitHub : vérifiés
+Production manuelle et verrous staging/production GitLab : vérifiés
+Cette analyse ne remplace ni CI Lint GitLab ni une exécution GitHub Actions.

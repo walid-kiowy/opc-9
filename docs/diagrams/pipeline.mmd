@@ -1,0 +1,10 @@
+flowchart TD
+ A["Branche et revue"] --> B["Validation / tests / sécurité"]
+ B --> C["Build unique / manifeste et empreinte"]
+ C --> D["Staging / même artefact / intégration et charge"]
+ D --> E{"Acceptation et décision Ops"}
+ E -->|Validé| F["Production progressive / même artefact"]
+ E -->|Refusé| X["Correction et nouveau pipeline"]
+ F --> H{"Version et santé correctes"}
+ H -->|Oui| I["Surveillance et clôture"]
+ H -->|Non| J["Retour arrière compatible / incident"]

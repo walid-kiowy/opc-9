@@ -1,0 +1,32 @@
+---
+- name: Préparer le service utilisateur de démonstration
+  hosts: demo
+  gather_facts: true
+  tasks:
+    - name: Vérifier Node installé par les Ops
+      ansible.builtin.command: node --version
+      changed_when: false
+    - name: Créer les répertoires
+      ansible.builtin.file:
+        path: "{{ ansible_facts.env.HOME }}/{{ item }}"
+        state: directory
+        mode: '0750'
+      loop: [glossapro/releases, .config/systemd/user]
+    - name: Installer le service
+      ansible.builtin.copy:
+        dest: "{{ ansible_facts.env.HOME }}/.config/systemd/user/glossapro.service"
+        mode: '0640'
+        content: |
+          [Unit]
+          Description=GlossaPro demonstration
+          [Service]
+          WorkingDirectory=%h/glossapro/current
+          EnvironmentFile=%h/glossapro/current/service.env
+          ExecStart=/usr/bin/node %h/glossapro/current/src/server.mjs
+          Restart=on-failure
+          [Install]
+          WantedBy=default.target
+    - name: Recharger systemd utilisateur
+      ansible.builtin.systemd_service:
+        scope: user
+        daemon_reload: true

@@ -1,0 +1,27 @@
+sequenceDiagram
+ actor D as Dev et Ops
+ participant G as GitLab
+ participant R as Runner
+ participant A as Artifactory
+ participant E as Environnements
+ D->>G: Branche et merge request
+ G->>R: Lint, tests, secrets, SAST et SCA
+ R-->>G: Rapports et statut bloquant
+ D->>G: Revue et fusion si contrôles réussis
+ G->>R: Build du commit validé
+ R->>A: Publier artefact et manifeste uniques
+ A-->>R: Version et empreinte
+ R->>E: Ansible vers staging
+ E-->>R: Intégration et version servie
+ R-->>G: Preuves de staging
+ D->>G: Approbation production autorisée
+ G->>R: Livrer la version validée
+ R->>A: Récupérer le même artefact
+ R->>E: Déployer progressivement en production
+ alt Santé correcte
+ E-->>R: Version et santé confirmées
+ R-->>G: Livraison réussie
+ else Santé incorrecte
+ R->>E: Réactiver la release précédente
+ R-->>G: Échec et incident à analyser
+ end
